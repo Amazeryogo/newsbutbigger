@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LMAO</title>
+  </head>
+  <body>
+      {% for new in news['articles'] %}
+          {% if f == '1' %}
+              <h1>{{new.title}}</h1>
+              <h1>{{new['description']}}</h1>
+              <h1>----------------------------------------------------------</h1>
+          {% else %}
+              <p>{{new.title}}<p>
+              <p>{{new['description']}}</p>
+              <p>----------------------------------------------------------</p>
+          {% endif %}
+      {% endfor %}
+  </body>
+</html>
