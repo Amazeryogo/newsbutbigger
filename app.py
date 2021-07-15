@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-url = ('https://newsapi.org/v2/top-headlines?country=in&apiKey=28747323d8ca4c64bc95ac313b7c269c')
+url = ('https://newsapi.org/v2/top-headlines?country=in&apiKey=SIKE')
 
 
 @app.route('/')
