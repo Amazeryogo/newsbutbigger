@@ -3,17 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>LMAO</title>
+    <style>
+    div {
+  background-color: azure;
+  width: 300px;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
   </head>
   <body>
+    <h1 style="color: fuchsia">Latest headlines</h1>
       {% for new in news['articles'] %}
           {% if f == '1' %}
+
               <h1>{{new.title}}</h1>
-              <h1>{{new['description']}}</h1>
-              <h1>----------------------------------------------------------</h1>
+              <div><h1>{{new['description']}}</h1></div>
+              <br/>
           {% else %}
               <p>{{new.title}}<p>
-              <p>{{new['description']}}</p>
-              <p>----------------------------------------------------------</p>
+              <div><p>{{new['description']}}</p></div>
+              <br/>
           {% endif %}
       {% endfor %}
   </body>
