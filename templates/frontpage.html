@@ -16,19 +16,20 @@
     <h1 style="color: fuchsia">Latest headlines</h1>
       {% for new in news['articles'] %}
           {% if f == '1' %}
-
-              <h1>{{new.title}}</h1>
+              <h1><a href="{{new['url']}}">{{new.title}}</a><p>
+              <h2>Published at {{new['publishedAt']}}</h2>
               <div><h1>{{new['description']}}</h1></div>
               <br/>
           {% else %}
-              <p>{{new.title}}<p>
+              <p><a href="{{new['url']}}">{{new.title}}</a><p>
+              <p>Published at {{new['publishedAt']}}</p>
               <div><p>{{new['description']}}</p></div>
               <br/>
           {% endif %}
       {% endfor %}
-    <footer>
+      <footer>
     <p><a href="https://github.com/Amazeryogo/newsbutbigger">source code</a></p>
   </footer>
-
   </body>
 </html>
+
