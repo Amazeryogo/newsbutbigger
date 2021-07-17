@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>LMAO</title>
+    <title>News</title>
     <style>
     div {
   background-color: azure;
@@ -13,15 +13,32 @@
 </style>
   </head>
   <body>
-    <h1 style="color: fuchsia">Latest headlines</h1>
+    <h1 style="color: fuchsia;text-align: center;">Quick News</h1>
+    {% if f == '1' %}
+        <h1>Weather in {{city}}</h1>
+        <h1>temperature: {{ct}}</h1>
+        <h1>pressure: {{cp}}</h1>
+        <h1>humidity: {{ch}}</h1>
+        <h1>description: {{cd}}</h1>
+        <p>---------------------------------------------------------------------</p>
+    {% else %}
+          <h3>Weather in {{city}}</h3>
+          <p>temperature: {{ct}}</p>
+          <p>pressure: {{cp}}</p>
+          <p>humidity: {{ch}}</p>
+          <p>description: {{cd}}<p>
+          <p>---------------------------------------------------------------------</p>
+      {% endif %}
       {% for new in news['articles'] %}
           {% if f == '1' %}
               <h1><a href="{{new['url']}}">{{new.title}}</a><p>
+              <h2 style="color: maroon">By {{new['author']}}</h2>
               <h2>Published at {{new['publishedAt']}}</h2>
               <div><h1>{{new['description']}}</h1></div>
               <br/>
           {% else %}
-              <p><a href="{{new['url']}}">{{new.title}}</a><p>
+              <h4><a href="{{new['url']}}">{{new.title}}</a><h4>
+              <p style="color: maroon">By {{new['author']}}</h2>
               <p>Published at {{new['publishedAt']}}</p>
               <div><p>{{new['description']}}</p></div>
               <br/>
