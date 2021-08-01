@@ -16,17 +16,17 @@
     <h1 style="color: fuchsia;text-align: center;">Quick News</h1>
     {% if f == '1' %}
         <h1>Weather in {{city}}</h1>
-        <h1>temperature: {{ct}}</h1>
-        <h1>pressure: {{cp}}</h1>
-        <h1>humidity: {{ch}}</h1>
-        <h1>description: {{cd}}</h1>
+        <h1>Temperature: {{ct}}&#176;C/{{far}}&#176;F</h1>
+        <h1>Pressure: {{cp}} pascal</h1>
+        <h1>Humidity: {{ch}}% </h1>
+        <h1>Description: {{cd}}</h1>
         <p>---------------------------------------------------------------------</p>
     {% else %}
           <h3>Weather in {{city}}</h3>
-          <p>temperature: {{ct}}</p>
-          <p>pressure: {{cp}}</p>
-          <p>humidity: {{ch}}</p>
-          <p>description: {{cd}}<p>
+          <p>Temperature: {{ct}}&#176;C/{{far}}&#176;F</p>
+          <p>Pressure: {{cp}} pascal</p>
+          <p>Humidity: {{ch}}% </p>
+          <p>Description: {{cd}}<p>
           <p>---------------------------------------------------------------------</p>
       {% endif %}
       {% for new in news['articles'] %}
@@ -49,4 +49,3 @@
   </footer>
   </body>
 </html>
-
