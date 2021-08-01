@@ -16,8 +16,8 @@ global news
 news = ""
 # This is the cache to stop newsapi to brick my apikey ;)
 
-url = ('https://newsapi.org/v2/top-headlines?country=in&apiKey=SIKE')
-api_key = "NO"
+url = ('https://newsapi.org/v2/top-headlines?country=in&apiKey=NO')
+api_key = "k"
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 def get_news():
@@ -53,17 +53,19 @@ def frontpage():
 
     hmmm = "https://geolocation-db.com/json/"+ip+"position=true"
     new = requests.get(hmmm).json()
-    city = new['city']  
-    complete_url = base_url + "appid=GETONEYOURSELF"+"&q=" + city
+    city = new['city']
+    complete_url = base_url + "appid=k"+"&q=" + city
     response = requests.get(complete_url)
     x = response.json()
     if x["cod"] != "404":
         y = x["main"]
         current_temperature = y["temp"]
+        current_temperature = round(current_temperature - 273.15, 1)
+        far = (current_temperature * 9/5) + 32
         current_pressure = y["pressure"]
         current_humidity = y["humidity"]
         z = x["weather"]
         weather_description = z[0]["description"]
-    return render_template('frontpage.html',city=city,news=news,f=fontsize,ct=current_temperature,cp=current_pressure,ch=current_humidity,cd=weather_description)
+    return render_template('frontpage.html',far=far,city=city,news=news,f=fontsize,ct=current_temperature,cp=current_pressure,ch=current_humidity,cd=weather_description)
 
 # Suvid Datta 2021
