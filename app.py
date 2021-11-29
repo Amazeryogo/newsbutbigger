@@ -1,12 +1,14 @@
 import time
 from flask import *
 import requests
+from keys import *
 
 app = Flask(__name__)
 
 global refresh_cap
 refresh_cap = 0
 # if this hits 4, we ping newsapi to get us new json
+
 
 global total
 total = 0
@@ -16,26 +18,58 @@ global news
 news = ""
 # This is the cache to stop newsapi to brick my apikey ;)
 
-url = ('https://newsapi.org/v2/top-headlines?country=in&apiKey=NO')
-api_key = "k"
-base_url = "http://api.openweathermap.org/data/2.5/weather?"
+# add new urls
+global url 
+global base_url
+url = "https://newsapi.org/v2/top-headlines?apiKey=" + NEWS
+base_url = "http://api.openweathermap.org/data/2.5/weather?appid=" + WEATHER 
 
-def get_news():
-    response = requests.get(url)
+def get_news(urls):
+    response = requests.get(urls)
     newsx = json.loads(response.text)
     return newsx
 
 @app.route('/')
 def frontpage():
-    global refresh_cap
+    final_url = base_url
+    x = request.args
+    if x.get('country') is not None:
+        country = x.get('country')
+        final_url = url + "&q=" + country
+        refresh_cap = 0
+    if x.get('category') is not None:
+        category = x.get('category')
+        final_url = url + "&category=" + category
+        refresh_cap = 0
+    if x.get('sources') is not None:
+        sources = x.get('sources')
+        final_url = url + "&sources=" + sources
+        refresh_cap = 0
+    if x.get('from') is not None:
+        from_date = x.get('from')
+        final_url = url + "&from=" + from_date
+        refresh_cap = 0
+    if x.get('to') is not None:
+        to_date = x.get('to')
+        final_url = url + "&to=" + to_date
+        refresh_cap = 0
+    if x.get('domain') is not None:
+        domain = x.get('domain')
+        final_url = url + "&domain=" + domain
+        refresh_cap = 0
+    else:
+        final_url = url + "&q=india"
+
+
+
     refresh_cap = refresh_cap + 1
     global total
     total = total + 1
     if total == 1:
         global news
-        news = get_news()
+        news = get_news(final_url)
     elif refresh_cap == 4:
-        news = get_news()
+        news = get_news(final_url)
         print(refresh_cap)
         refresh_cap = 0
     else:
@@ -54,8 +88,8 @@ def frontpage():
     hmmm = "https://geolocation-db.com/json/"+ip+"position=true"
     new = requests.get(hmmm).json()
     city = new['city']
-    complete_url = base_url + "appid=k"+"&q=" + city
-    response = requests.get(complete_url)
+    final_url = base_url + "&q=" + city
+    response = requests.get(final_url)
     x = response.json()
     if x["cod"] != "404":
         y = x["main"]
@@ -66,6 +100,10 @@ def frontpage():
         current_humidity = y["humidity"]
         z = x["weather"]
         weather_description = z[0]["description"]
+    else:
+        print(x)
     return render_template('frontpage.html',far=far,city=city,news=news,f=fontsize,ct=current_temperature,cp=current_pressure,ch=current_humidity,cd=weather_description)
 
 # Suvid Datta 2021
+
+app.run(debug=True)

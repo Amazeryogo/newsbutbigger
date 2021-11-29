@@ -1,51 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>News</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-    div {
-  background-color: azure;
-  width: 300px;
-  padding: 50px;
-  margin: 20px;
-}
-</style>
-  </head>
-  <body>
-    <h1 style="color: fuchsia;text-align: center;">Quick News</h1>
-    {% if f == '1' %}
-        <h1>Weather in {{city}}</h1>
-        <h1>Temperature: {{ct}}&#176;C/{{far}}&#176;F</h1>
-        <h1>Pressure: {{cp}} pascal</h1>
-        <h1>Humidity: {{ch}}% </h1>
-        <h1>Description: {{cd}}</h1>
-        <p>---------------------------------------------------------------------</p>
-    {% else %}
-          <h3>Weather in {{city}}</h3>
-          <p>Temperature: {{ct}}&#176;C/{{far}}&#176;F</p>
-          <p>Pressure: {{cp}} pascal</p>
-          <p>Humidity: {{ch}}% </p>
-          <p>Description: {{cd}}<p>
-          <p>---------------------------------------------------------------------</p>
-      {% endif %}
-      {% for new in news['articles'] %}
-          {% if f == '1' %}
-              <h1><a href="{{new['url']}}">{{new.title}}</a><p>
-              <h2 style="color: maroon">By {{new['author']}}</h2>
-              <h2>Published at {{new['publishedAt']}}</h2>
-              <div><h1>{{new['description']}}</h1></div>
-              <br/>
-          {% else %}
-              <h4><a href="{{new['url']}}">{{new.title}}</a><h4>
-              <p style="color: maroon">By {{new['author']}}</h2>
-              <p>Published at {{new['publishedAt']}}</p>
-              <div><p>{{new['description']}}</p></div>
-              <br/>
-          {% endif %}
-      {% endfor %}
-      <footer>
-    <p><a href="https://github.com/Amazeryogo/newsbutbigger">source code</a></p>
-  </footer>
-  </body>
+        .container {
+            margin: auto;
+            border: 5px outset ;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: lightblue;
+            width: 50%;        
+        }
+        .container2 {
+            margin: auto;
+            border: 5px outset lightblue;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(8, 72, 102);
+            width: 50%;
+            color: whitesmoke;     
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .button {
+            width: 100px;
+            height: 50px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <!--Basically, I want a html file that renders a api response from newsapi in the best way possible-->
+    <!--First, I want a fancy title-->
+    <h1 style="text-align:center; font-family: Georgia, sans-serif;font-size: 5em;letter-spacing: -2px;">News</h1>
+    <!--Then, I want to show the weather-->
+    <h2 style="text-align:center;font-family: Georgia, sans-serif;font-size: 2em;letter-spacing: -2px;">Weather</h2>
+    <div class="container2">
+        <h3 style="text-align: center;">Current weather in {{city}}</h3>
+        <p>{{ct}}&#176;C/{{far}}&#176;F</p>
+        <p>Humidity:{{ch}}% </p>
+        <p>Desc: {{cd}}</p>
+    </div>
+    <!--Then, I want to show the news-->
+    <br/>
+    <br/>
+    {% for new in news['articles'] %}
+    <!--Put this in a fancy blue bubble in the middle-->
+    <div class="container">
+        <!--Make the new title a bit fancy and in the centre-->
+        <h4 style="text-align: center;font-family: Georgia, sans-serif;font-size: 2em;letter-spacing: -2px;">{{new['title']}}</h4>
+        <h4 style="text-align: center;"><a href="{{new['url']}}">Link</a></h4>
+        <!--Make the new description a bit fancy and in the centre-->
+        <p style="text-align: center; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">{{new['description']}}</p>
+    </div>
+
+    {% endfor %}
+</body>
 </html>
